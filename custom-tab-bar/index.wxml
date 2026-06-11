@@ -1,7 +1,27 @@
-<t-tab-bar value="{{ value }}" theme="tag" split="{{ false }}" bind:change="handleChange">
-  <t-tab-bar-item icon="home" value="home1">首页</t-tab-bar-item>
-  <t-tab-bar-item icon="card" value="cards">心情卡片</t-tab-bar-item>
-  <t-tab-bar-item icon="sound" value="record">录音</t-tab-bar-item>
-  <t-tab-bar-item icon="calendar" value="calendar" badge-props="{{ { count: unreadNum } }}">日历</t-tab-bar-item>
-  <t-tab-bar-item icon="user" value="my">我的</t-tab-bar-item>
-</t-tab-bar>
+<view class="bottom-nav">
+  <view class="starburst-wrapper">
+    <view class="starburst-container"></view>
+  </view>
+  <view class="nav-bar">
+    <view class="nav-item {{value === 'home1' ? 'active' : ''}}" bindtap="onNavTap" data-value="home1">
+      <t-icon name="home" size="48rpx" />
+      <text>Home</text>
+    </view>
+    <view class="nav-item {{value === 'cards' ? 'active' : ''}}" bindtap="onNavTap" data-value="cards">
+      <t-icon name="card" size="48rpx" />
+      <text>History</text>
+    </view>
+    <view class="fab {{isRecording ? 'recording' : ''}}" bindtap="onRecordTap">
+      <t-icon name="{{isRecording ? 'stop' : 'microphone'}}" size="80rpx" color="white" />
+      <view class="rotate-ring"></view>
+    </view>
+    <view class="nav-item {{value === 'calendar' ? 'active' : ''}}" bindtap="onNavTap" data-value="calendar">
+      <t-icon name="calendar" size="48rpx" />
+      <text>Saved</text>
+    </view>
+    <view class="nav-item {{value === 'my' ? 'active' : ''}}" bindtap="onNavTap" data-value="my">
+      <t-icon name="user" size="48rpx" />
+      <text>Agents</text>
+    </view>
+  </view>
+</view>

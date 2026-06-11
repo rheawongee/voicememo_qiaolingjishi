@@ -31,13 +31,13 @@
         <text>Your AI Voice Agent</text>
       </view>
       <h2>Hey! I'm Bennett 👋</h2>
-      <view class="sub">I can listen, summarize, and help you get things done.</view>
+      <view class="sub">Share me your schedules and ideas~</view>
       <view class="character-area">
         <view class="bubble1 floating">LET'S TALK!</view>
         <view class="bubble2 floating">I'M ALL EARS! ❤️</view>
         <view class="deco-left"><t-icon name="sound" size="48rpx" /></view>
         <view class="deco-right"><t-icon name="chart-line" size="48rpx" color="white" /></view>
-        <image class="hero-img" mode="aspectFit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD4RhE7JPd6lua0po1T-u47dyZX2he8Ybk-M8FuCg643kveEU65qf9EBGssIhK-Dlp8MbT89byUoyrAtIs0-7EXOrXQoaRbvTWDNjEAyD29Yfw2QYFxGbWg10ANOEKkg42FulRK5k27Z-f0Woce4k0nAdhBeM97KagVByTi8AXF35iWDHSm0oNuua0_ZEoEN4INpvGN0c34JXWbiH31i3AWEGnqSPkVQgGUmZnr1Vh04KvT9EjfWTejFMZvzlmNKfL0gAGFn4m8kM" />
+        <image class="hero-img" mode="aspectFit" src="/static/bennet.png" />
       </view>
     </view>
 
@@ -98,33 +98,5 @@
       </block>
     </view>
 
-    <!-- 底部导航栏 + FAB -->
-    <view class="bottom-nav">
-      <view class="starburst-wrapper">
-        <view class="starburst-container"></view>
-      </view>
-      <view class="nav-bar">
-        <view class="nav-item active" bindtap="onNavTap" data-page="home">
-          <t-icon name="home" size="48rpx" />
-          <text>Home</text>
-        </view>
-        <view class="nav-item" bindtap="onNavTap" data-page="history">
-          <t-icon name="time" size="48rpx" />
-          <text>History</text>
-        </view>
-        <view class="fab {{isRecording ? 'recording' : ''}}" bindtap="onRecordTap">
-          <t-icon name="{{isRecording ? 'stop' : 'microphone'}}" size="80rpx" color="white" />
-          <view class="rotate-ring"></view>
-        </view>
-        <view class="nav-item" bindtap="onNavTap" data-page="saved">
-          <t-icon name="bookmark" size="48rpx" />
-          <text>Saved</text>
-        </view>
-        <view class="nav-item" bindtap="onNavTap" data-page="agents">
-          <t-icon name="star" size="48rpx" />
-          <text>Agents</text>
-        </view>
-      </view>
-    </view>
   </view>
 </view>
