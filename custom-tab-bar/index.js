@@ -7,13 +7,23 @@ Component({
     list: [
       {
         icon: 'home',
-        value: 'index',
+        value: 'agent',
         label: '首页',
       },
       {
-        icon: 'chat',
-        value: 'notice',
-        label: '消息',
+        icon: 'card',
+        value: 'index',
+        label: '心情卡片',
+      },
+      {
+        icon: 'sound',
+        value: 'record',
+        label: '录音',
+      },
+      {
+        icon: 'calendar',
+        value: 'calendar',
+        label: '日历',
       },
       {
         icon: 'user',

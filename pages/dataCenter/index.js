@@ -1,104 +1,66 @@
-import request from '~/api/request';
-
+// pages/dataCenter/index.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    totalSituationDataList: null,
-    totalSituationKeyList: null,
-    completeRateDataList: null,
-    complete_rate_keyList: null,
-    interactionSituationDataList: null,
-    interaction_situation_keyList: null,
-    areaDataList: null,
-    areaDataKeysList: null,
-    memberitemWidth: null,
-    smallitemWidth: null,
-  },
 
-  onLoad() {
-    this.init();
-  },
-
-  init() {
-    this.getMemberData();
-    this.getInteractionData();
-    this.getCompleteRateData();
-    this.getAreaData();
   },
 
   /**
-   * 获取 “整体情况” 数据
+   * 生命周期函数--监听页面加载
    */
-  getMemberData() {
-    request('/dataCenter/member').then((res) => {
-      const totalSituationData = res.data.template.succ.data.list;
-      this.setData({
-        totalSituationDataList: totalSituationData,
-      });
+  onLoad(options) {
 
-      // 计算每个.item元素的宽度
-      const itemWidth = `${(750 - 32 * (totalSituationData.length - 1)) / totalSituationData.length}rpx`;
-
-      // 更新.item元素的样式
-      this.setData({
-        memberitemWidth: itemWidth,
-      });
-    });
   },
 
   /**
-   * 获取 “互动情况” 数据
+   * 生命周期函数--监听页面初次渲染完成
    */
-  getInteractionData() {
-    request('/dataCenter/interaction').then((res) => {
-      const interactionSituationData = res.data.template.succ.data.list;
-      this.setData({
-        interactionSituationDataList: interactionSituationData,
-        interactionSituationKeysList: Object.keys(interactionSituationData[0]),
-      });
+  onReady() {
 
-      // 计算每个.item元素的宽度
-      const itemWidth = `${(750 - 32 * (interactionSituationData.length - 1)) / interactionSituationData.length}rpx`;
-      // 更新.item元素的样式
-      this.setData({
-        smallitemWidth: itemWidth,
-      });
-    });
   },
 
   /**
-   * 完播率
+   * 生命周期函数--监听页面显示
    */
-  getCompleteRateData() {
-    request('/dataCenter/complete-rate').then((res) => {
-      const completeRateData = res.data.template.succ.data.list;
-      this.setData({
-        completeRateDataList: completeRateData,
-        completeRateKeysList: Object.keys(completeRateData[0]),
-      });
+  onShow() {
 
-      // 计算每个.item元素的宽度
-      const itemHeight = `${380 / completeRateData.length}rpx`;
-
-      // 更新.item元素的样式
-      this.setData({
-        itemHeight: itemHeight,
-      });
-    });
   },
 
   /**
-   * 按区域统计
+   * 生命周期函数--监听页面隐藏
    */
-  getAreaData() {
-    request('/dataCenter/area').then((res) => {
-      const areaData = res.data.template.succ.data.list;
-      this.setData({
-        areaDataList: areaData,
-        areaDataKeysList: Object.keys(areaData[0]),
-      });
-    });
+  onHide() {
+
   },
-});
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
+  }
+})
