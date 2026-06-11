@@ -14,28 +14,8 @@ Component({
     sidebar: [
       {
         title: '首页',
-        url: 'pages/home/index',
+        url: 'pages/home1/index',
         isSidebar: true,
-      },
-      {
-        title: '搜索页',
-        url: 'pages/search/index',
-        isSidebar: false,
-      },
-      {
-        title: '发布页',
-        url: 'pages/release/index',
-        isSidebar: false,
-      },
-      {
-        title: '消息列表页',
-        url: 'pages/message/index',
-        isSidebar: true,
-      },
-      {
-        title: '对话页',
-        url: 'pages/chat/index',
-        isSidebar: false,
       },
       {
         title: '个人中心页',
@@ -50,11 +30,6 @@ Component({
       {
         title: '设置页',
         url: 'pages/setting/index',
-        isSidebar: false,
-      },
-      {
-        title: '数据图表页',
-        url: 'pages/dataCenter/index',
         isSidebar: false,
       },
       {
@@ -98,12 +73,6 @@ Component({
           });
         });
       }
-    },
-
-    searchTurn() {
-      wx.navigateTo({
-        url: `/pages/search/index`,
-      });
     },
   },
 });

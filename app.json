@@ -1,8 +1,6 @@
 {
   "pages": [
-    "pages/agent/index",
-    "pages/home/index",
-    "pages/message/index",
+    "pages/home1/index",
     "pages/my/index"
   ],
   "usingComponents": {
@@ -10,22 +8,8 @@
   },
   "subpackages": [
     {
-      "root": "pages/search",
-      "name": "search",
-      "pages": [
-        "index"
-      ]
-    },
-    {
       "root": "pages/my/info-edit",
       "name": "edit",
-      "pages": [
-        "index"
-      ]
-    },
-    {
-      "root": "pages/chat",
-      "name": "chat",
       "pages": [
         "index"
       ]
@@ -45,22 +29,8 @@
       ]
     },
     {
-      "root": "pages/dataCenter",
-      "name": "dataCenter",
-      "pages": [
-        "index"
-      ]
-    },
-    {
       "root": "pages/setting",
       "name": "setting",
-      "pages": [
-        "index"
-      ]
-    },
-    {
-      "root": "pages/release",
-      "name": "release",
       "pages": [
         "index"
       ]
@@ -76,12 +46,8 @@
     "custom": true,
     "list": [
       {
-        "pagePath": "pages/agent/index",
+        "pagePath": "pages/home1/index",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/message/index",
-        "text": "消息"
       },
       {
         "pagePath": "pages/my/index",
