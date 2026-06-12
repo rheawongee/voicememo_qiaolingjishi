@@ -1,0 +1,31 @@
+/* components/status-tag/index.wxss */
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 20rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+  border-width: 2rpx;
+  border-style: solid;
+  font-weight: 500;
+  width: fit-content;
+  max-width: 100%;
+  word-break: break-all;
+
+  &.tag-cyan {
+    background: #E8FBFF;
+    color: #00838F;
+    border-color: #4DD0E1;
+  }
+  &.tag-orange {
+    background: #FFF1DF;
+    color: #E65100;
+    border-color: #FFB74D;
+  }
+  &.tag-black {
+    background: #333;
+    color: white;
+    border-color: #000;
+  }
+}

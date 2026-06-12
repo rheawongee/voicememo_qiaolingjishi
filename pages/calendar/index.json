@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "status-tag": "/components/status-tag/index"
+  },
+  "navigationStyle": "custom"
+}

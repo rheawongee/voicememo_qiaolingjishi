@@ -1,0 +1,74 @@
+<view class="app-container">
+  <!-- 背景半色调 -->
+  <view class="halftone-bg"></view>
+
+  <!-- 头部：Logo + 头像 -->
+  <view class="header">
+    <view class="logo">
+      <text class="logo-cyan">Voice</text><text class="logo-orange">Memo</text>
+    </view>
+    <view class="avatar" bindtap="onAvatarTap">
+      <image class="avatar-img" mode="aspectFill" src="/images/default-avatar.png" />
+    </view>
+  </view>
+
+  <!-- 月份控制栏 -->
+  <view class="month-control">
+    <view class="date-picker-card">
+      <t-icon name="calendar" size="36rpx" color="#FF1493" />
+      <view class="date-text">
+        <text class="year">{{currentYear}}</text>
+        <text class="month">{{currentMonth}}月</text>
+      </view>
+      <view class="month-buttons">
+        <view class="nav-btn" bindtap="prevMonth">
+          <t-icon name="chevron-left" size="36rpx" />
+        </view>
+        <view class="nav-btn" bindtap="nextMonth">
+          <t-icon name="chevron-right" size="36rpx" />
+        </view>
+      </view>
+    </view>
+    <button class="back-today-btn" bindtap="backToToday">
+      <t-icon name="star" size="28rpx" color="#FFB800" />
+      <text>回到本月</text>
+      <t-icon name="star" size="28rpx" color="#FFB800" />
+    </button>
+  </view>
+
+
+  <!-- 日历主体（滚动区域） -->
+  <scroll-view class="main-content" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 星期行 -->
+    <view class="weekdays">
+      <view class="weekday">一</view>
+      <view class="weekday">二</view>
+      <view class="weekday">三</view>
+      <view class="weekday">四</view>
+      <view class="weekday">五</view>
+      <view class="weekday">六</view>
+      <view class="weekday sunday">日</view>
+    </view>
+
+    <!-- 日期网格 -->
+    <view class="calendar-grid">
+      <block wx:for="{{calendarDays}}" wx:key="index">
+        <view class="day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}}">
+          <view class="day-number">{{item.day}}</view>
+          <view class="tags-container">
+            <!-- 可复用的 status-tag 组件 -->
+            <block wx:for="{{item.tags}}" wx:key="id" wx:for-item="tag">
+              <status-tag 
+                tag="{{tag}}" 
+                bind:tagTap="onTagTap"
+              />
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 底部占位 -->
+    <view class="bottom-placeholder"></view>
+  </scroll-view>
+</view>

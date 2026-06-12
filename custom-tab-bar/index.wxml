@@ -5,11 +5,11 @@
   <view class="nav-bar">
     <view class="nav-item {{value === 'home1' ? 'active' : ''}}" bindtap="onNavTap" data-value="home1">
       <t-icon name="home" size="48rpx" />
-      <text>Home</text>
+      <text>首页</text>
     </view>
     <view class="nav-item {{value === 'cards' ? 'active' : ''}}" bindtap="onNavTap" data-value="cards">
       <t-icon name="card" size="48rpx" />
-      <text>History</text>
+      <text>已完成</text>
     </view>
     <view class="fab {{isRecording ? 'recording' : ''}}" bindtap="onRecordTap">
       <t-icon name="{{isRecording ? 'stop' : 'microphone'}}" size="80rpx" color="white" />
@@ -17,11 +17,11 @@
     </view>
     <view class="nav-item {{value === 'calendar' ? 'active' : ''}}" bindtap="onNavTap" data-value="calendar">
       <t-icon name="calendar" size="48rpx" />
-      <text>Saved</text>
+      <text>日历</text>
     </view>
     <view class="nav-item {{value === 'my' ? 'active' : ''}}" bindtap="onNavTap" data-value="my">
       <t-icon name="user" size="48rpx" />
-      <text>Agents</text>
+      <text>我的</text>
     </view>
   </view>
 </view>

@@ -4,9 +4,7 @@
   <view class="header-bg">
     <view class="halftone-bg"></view>
   </view>
-  <!-- 撕裂纸张边缘 -->
-  <view class="mask-torn-paper-top"></view>
-
+  
   <!-- 自定义顶部栏 -->
   <view class="custom-header">
     <view class="menu-btn" bindtap="onMenuTap">

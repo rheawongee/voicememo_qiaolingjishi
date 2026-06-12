@@ -1,7 +1,10 @@
 {
   "pages": [
     "pages/home1/index",
-    "pages/my/index"
+    "pages/my/index",
+    "components/status-tag/index",
+    "pages/calendar/index",
+    "pages/detail/index"
   ],
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
@@ -50,8 +53,16 @@
         "text": "首页"
       },
       {
+        "pagePath": "pages/calendar/index",
+        "text": "日历"
+      },
+      {
         "pagePath": "pages/my/index",
         "text": "我的"
+      },
+      {
+        "pagePath": "pages/detail/index",
+        "text": "日程详情"
       }
     ]
   },

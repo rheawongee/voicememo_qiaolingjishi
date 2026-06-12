@@ -1,0 +1,245 @@
+page {
+  background-color: #FF1493; /* 与 html body 背景一致 */
+}
+
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #FF1493;
+  overflow: hidden;
+}
+
+.halftone-bg {
+  background-image: radial-gradient(rgba(0,0,0,0.2) 1px, transparent 0);
+  background-size: 8rpx 8rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* 状态栏 */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 24rpx 32rpx;
+  color: white;
+  font-weight: bold;
+  font-size: 28rpx;
+  .status-icons {
+    display: flex;
+    gap: 12rpx;
+  }
+}
+
+/* 头部 Logo 和头像 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  .logo {
+    font-size: 56rpx;
+    font-weight: 900;
+    letter-spacing: -2rpx;
+    .logo-cyan { color: #00E5FF; text-shadow: 2rpx 2rpx 0 #000; }
+    .logo-orange { color: #FFB800; text-shadow: 2rpx 2rpx 0 #000; }
+  }
+  .avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    border: 4rpx solid black;
+    overflow: hidden;
+    background: white;
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/* 月份控制栏 */
+.month-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16rpx 32rpx;
+  margin-bottom: 16rpx;
+  .date-picker-card {
+    background: white;
+    border-radius: 24rpx;
+    border: 4rpx solid black;
+    box-shadow: 6rpx 6rpx 0 black;
+    padding: 16rpx 24rpx;
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+    .date-text {
+      display: flex;
+      flex-direction: column;
+      .year {
+        font-size: 20rpx;
+        color: #FF1493;
+        font-weight: bold;
+      }
+      .month {
+        font-size: 36rpx;
+        font-weight: 900;
+      }
+    }
+    .month-buttons {
+      display: flex;
+      gap: 12rpx;
+      .nav-btn {
+        width: 48rpx;
+        height: 48rpx;
+        border: 2rpx solid black;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f0;
+      }
+    }
+  }
+  .back-today-btn {
+    background: #00E5FF;
+    border: 4rpx solid black;
+    border-radius: 40rpx;
+    box-shadow: 4rpx 4rpx 0 black;
+    padding: 12rpx 24rpx;
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+    font-size: 24rpx;
+    font-weight: bold;
+  }
+}
+
+/* 撕裂边缘 */
+.torn-edge {
+  width: 100%;
+  height: 30rpx;
+  background: white;
+  mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 L5 12 L10 18 L15 10 L20 15 L25 5 L30 15 L35 8 L40 16 L45 10 L50 18 L55 5 L60 15 L65 7 L70 16 L75 10 L80 18 L85 8 L90 15 L95 10 L100 20 Z" fill="black"/></svg>');
+  mask-size: 100% 30rpx;
+  mask-repeat: repeat-x;
+  margin-top: -8rpx;
+  position: relative;
+  z-index: 2;
+}
+
+/* 主内容区 */
+.main-content {
+  position: relative;
+  background: #FFECF0;
+  height: calc(100% - 380rpx);
+  overflow-y: auto;
+  padding-bottom: 100rpx;
+}
+
+/* 星期行 */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 2rpx solid black;
+  border-bottom: 2rpx solid black;
+  background: #FFECF0;
+  .weekday {
+    text-align: center;
+    padding: 20rpx 0;
+    font-weight: bold;
+    font-size: 28rpx;
+    border-right: 2rpx solid black;
+    &:last-child {
+      border-right: none;
+    }
+  }
+  .sunday {
+    color: #FF1493;
+  }
+}
+
+/* 日历网格 */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #FFECF0;
+}
+
+.day-cell {
+  min-height: 160rpx;
+  padding: 12rpx 8rpx;
+  border-right: 2rpx dashed #B2EBF2;
+  border-bottom: 2rpx dashed #B2EBF2;
+  background: #FFECF0;
+  transition: all 0.1s;
+  .day-number {
+    font-size: 28rpx;
+    color: #444;
+    margin-bottom: 8rpx;
+  }
+  &.other-month {
+    background: #fff4f7;
+    .day-number {
+      color: #ccc;
+    }
+  }
+  &.today {
+    .day-number {
+      background: #FF1493;
+      color: white;
+      width: 56rpx;
+      border-radius: 28rpx;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+}
+
+/* 标签容器 */
+.tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+/* 可复用的 status-tag 组件样式（将在组件中定义，此处为页面内备援） */
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 20rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+  border-width: 2rpx;
+  border-style: solid;
+  font-weight: 500;
+  width: fit-content;
+  max-width: 100%;
+  word-break: break-all;
+  &.tag-cyan {
+    background: #E8FBFF;
+    color: #00838F;
+    border-color: #4DD0E1;
+  }
+  &.tag-orange {
+    background: #FFF1DF;
+    color: #E65100;
+    border-color: #FFB74D;
+  }
+  &.tag-black {
+    background: #333;
+    color: white;
+    border-color: #000;
+  }
+}
+
+.bottom-placeholder {
+  height: 80rpx;
+}

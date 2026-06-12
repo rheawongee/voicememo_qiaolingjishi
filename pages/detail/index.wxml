@@ -1,0 +1,148 @@
+<view class="app-container">
+  <!-- 头部：洋红背景 + 撕纸边 -->
+  <view class="header-bg">
+    <view class="status-bar">
+      <text>9:41</text>
+      <view class="status-icons">
+        <t-icon name="signal" size="28rpx" color="white" />
+        <t-icon name="wifi" size="28rpx" color="white" />
+        <t-icon name="battery" size="28rpx" color="white" />
+      </view>
+    </view>
+    <view class="nav-bar">
+      <view class="nav-btn" bindtap="onBack">
+        <t-icon name="chevron-left" size="48rpx" color="black" />
+      </view>
+      <text class="page-title">日程详情</text>
+      <view class="nav-btn" bindtap="onMore">
+        <t-icon name="more" size="48rpx" color="black" />
+      </view>
+    </view>
+    <view class="torn-paper"></view>
+  </view>
+
+  <!-- 主内容区域（滚动） -->
+  <scroll-view class="main-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 任务类型切换 Tabs -->
+    <view class="task-tabs">
+      <view class="tab-item {{taskType === 'work' ? 'active' : ''}}" bindtap="onTabChange" data-type="work">
+        <t-icon name="work" size="36rpx" />
+        <text>工作</text>
+      </view>
+      <view class="tab-item {{taskType === 'study' ? 'active' : ''}}" bindtap="onTabChange" data-type="study">
+        <t-icon name="book" size="36rpx" />
+        <text>学习</text>
+      </view>
+      <view class="tab-item {{taskType === 'meet' ? 'active' : ''}}" bindtap="onTabChange" data-type="meet">
+        <t-icon name="user-talk" size="36rpx" />
+        <text>会面</text>
+      </view>
+      <view class="tab-item {{taskType === 'life' ? 'active' : ''}}" bindtap="onTabChange" data-type="life">
+        <t-icon name="heart" size="36rpx" />
+        <text>生活</text>
+      </view>
+    </view>
+
+    <!-- Hero 卡片（与日历 tag 联动） -->
+    <view class="hero-card card-style">
+      <view class="hero-content">
+        <view class="character-area">
+          <image class="character-img" mode="aspectFit" src="{{characterImg}}" />
+        </view>
+        <view class="task-info">
+          <view class="priority-tag" wx:if="{{priority}}">
+            <t-icon name="flag" size="28rpx" /> 重要
+          </view>
+          <view class="title-row">
+            <input class="task-title" value="{{title}}" bindinput="onTitleInput" placeholder="任务标题" />
+            <t-icon name="chevron-right" size="36rpx" color="#999" />
+          </view>
+          <textarea class="task-summary" value="{{summary}}" bindinput="onSummaryInput" placeholder="任务摘要" auto-height />
+          <view class="tag-group">
+            <view class="tag type-tag" style="background:{{typeColor}}">{{typeLabel}}</view>
+            <view class="tag" wx:for="{{tags}}" wx:key="index">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 时间安排 -->
+    <view class="section">
+      <view class="section-header">
+        <t-icon name="time" size="36rpx" color="#FF1493" />
+        <text>时间安排</text>
+        <view class="edit-btn" bindtap="editTime">编辑</view>
+      </view>
+      <view class="time-card card-style">
+        <view class="time-row">
+          <t-icon name="calendar" size="40rpx" />
+          <view class="date-block">
+            <text class="label">开始时间</text>
+            <picker mode="date" value="{{startDate}}" bindchange="onStartDateChange">
+              <text class="value">{{startDate}}</text>
+            </picker>
+          </view>
+          <picker mode="time" value="{{startTime}}" bindchange="onStartTimeChange">
+            <text class="time-value">{{startTime}}</text>
+          </picker>
+        </view>
+        <view class="time-row">
+          <t-icon name="calendar" size="40rpx" color="transparent" />
+          <view class="date-block">
+            <text class="label">结束时间</text>
+            <picker mode="date" value="{{endDate}}" bindchange="onEndDateChange">
+              <text class="value">{{endDate}}</text>
+            </picker>
+          </view>
+          <picker mode="time" value="{{endTime}}" bindchange="onEndTimeChange">
+            <text class="time-value">{{endTime}}</text>
+          </picker>
+        </view>
+        <view class="all-day-row">
+          <t-icon name="check-circle" size="36rpx" />
+          <text>全天日程</text>
+          <switch checked="{{isAllDay}}" bindchange="onAllDayChange" color="#FF1493" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 步骤清单 -->
+    <view class="section">
+      <view class="section-header">
+        <t-icon name="checklist" size="36rpx" color="#3B82F6" />
+        <text>步骤清单 ({{checkedSteps.length}}/{{steps.length}})</text>
+        <view class="edit-btn" bindtap="editSteps">编辑</view>
+      </view>
+      <view class="steps-card card-style">
+        <view class="step-item" wx:for="{{steps}}" wx:key="index">
+          <view class="step-left">
+            <view class="check-box {{item.checked ? 'checked' : ''}}" bindtap="toggleStep" data-index="{{index}}">
+              <t-icon wx:if="{{item.checked}}" name="check" size="28rpx" color="white" />
+            </view>
+            <text class="step-text {{item.checked ? 'done' : ''}}">{{item.text}}</text>
+          </view>
+          <t-icon name="more" size="36rpx" color="#ccc" />
+        </view>
+        <view class="add-step" bindtap="addStep">
+          <t-icon name="add" size="36rpx" />
+          <text>添加步骤</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部占位 -->
+    <view class="bottom-placeholder"></view>
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-actions">
+    <button class="delete-btn" bindtap="deleteSchedule">
+      <t-icon name="delete" size="40rpx" />
+      <text>删除日程</text>
+    </button>
+    <button class="save-btn" bindtap="saveSchedule">
+      <t-icon name="check" size="40rpx" color="white" />
+      <text>保存修改</text>
+    </button>
+  </view>
+</view>
