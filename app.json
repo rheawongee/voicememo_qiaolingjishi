@@ -3,7 +3,8 @@
     "pages/home1/index",
     "pages/my/index",
     "components/status-tag/index",
-    "pages/calendar/index"
+    "pages/calendar/index",
+    "pages/diary/index"
   ],
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
@@ -65,6 +66,10 @@
       {
         "pagePath": "pages/my/index",
         "text": "我的"
+      },
+      {
+        "pagePath": "pages/diary/index",
+        "text": "日结卡片"
       }
     ]
   },

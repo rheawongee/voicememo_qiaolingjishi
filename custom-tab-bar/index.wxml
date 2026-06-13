@@ -7,7 +7,7 @@
       <t-icon name="home" size="48rpx" />
       <text>首页</text>
     </view>
-    <view class="nav-item {{value === 'cards' ? 'active' : ''}}" bindtap="onNavTap" data-value="cards">
+    <view class="nav-item {{value === 'diary' ? 'active' : ''}}" bindtap="onNavTap" data-value="diary">
       <t-icon name="card" size="48rpx" />
       <text>已完成</text>
     </view>

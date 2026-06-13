@@ -1,0 +1,101 @@
+<!--pages/diary/index.wxml-->
+<view class="page-container">
+  <!-- 头部（洋红背景 + 撕纸边） -->
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <button class="menu-btn" bindtap="onMenu">
+        <t-icon name="menu" size="48rpx" color="black" />
+      </button>
+      <text class="logo">VoiceMemo</text>
+      <view class="avatar" bindtap="onAvatar">
+        <image class="avatar-img" mode="aspectFill" src="/images/default-avatar.png" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 主内容区 -->
+  <view class="main-content">
+    <view class="title-section">
+      <text class="main-title">已完成日程卡片</text>
+      <t-icon name="favorite" size="40rpx" color="#F82B8F" />
+    </view>
+    <text class="subtitle">Your task. Your voice. Your story.</text>
+
+    <!-- 卡片堆叠容器：只渲染当天日期的卡片 -->
+    <view wx:if="{{displayCards.length > 0}}"
+          class="card-stack"
+          bindtouchstart="onTouchStart"
+          bindtouchmove="onTouchMove"
+          bindtouchend="onTouchEnd">
+      <view wx:for="{{displayCards}}"
+            wx:for-item="item"
+            wx:for-index="index"
+            wx:key="id"
+            class="card-wrapper {{item.isActive ? 'active' : ''}}"
+            style="{{item.cardStyle}}">
+        <view class="card {{item.isCompleted ? 'completed' : 'uncompleted'}}">
+          <!-- 右上角状态按钮 -->
+          <view class="status-badge" bindtap="toggleStatus" data-id="{{item.id}}">
+            <t-icon name="{{item.isCompleted ? 'check-circle' : 'radio-button-unchecked'}}" size="36rpx" />
+            <text>{{item.isCompleted ? 'Done' : 'Undone'}}</text>
+          </view>
+
+          <!-- 卡片头部：日期 + 任务类型 -->
+          <view class="card-header">
+            <view class="date-tag">
+              <t-icon name="calendar" size="28rpx" />
+              <text>{{item.displayDate}}</text>
+            </view>
+            <view class="type-tag" style="background: {{item.typeColor}};">
+              <t-icon name="{{item.typeIcon}}" size="28rpx" color="white" />
+              <text>{{item.typeLabel}}</text>
+            </view>
+          </view>
+
+          <!-- 标题 + 时间 -->
+          <view class="title-row">
+            <text class="card-title">{{item.title}}</text>
+          </view>
+          <view class="time-row">
+            <t-icon name="schedule" size="28rpx" />
+            <text>{{item.startTime}} - {{item.endTime}}</text>
+          </view>
+
+          <!-- 可编辑文本区域 -->
+          <view class="note-area">
+            <textarea wx:if="{{item.isEditing}}"
+                      class="edit-textarea"
+                      value="{{item.note}}"
+                      bindinput="onNoteInput"
+                      data-id="{{item.id}}"
+                      auto-height />
+            <text wx:else class="note-text">{{item.note || '点击编辑按钮添加笔记...'}}</text>
+          </view>
+
+          <!-- 编辑/保存按钮 -->
+          <view class="edit-btn" bindtap="toggleEdit" data-id="{{item.id}}">
+            <t-icon name="{{item.isEditing ? 'save' : 'edit'}}" size="32rpx" />
+            <text>{{item.isEditing ? '保存' : '编辑'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 当天没有日程时的空状态 -->
+    <view wx:else class="empty-state">
+      <view class="empty-card">
+        <text class="empty-title">今天暂无日程卡片</text>
+        <text class="empty-date">{{todayText}}</text>
+        <text class="empty-desc">当天创建或跨越今天的日程会显示在这里。</text>
+      </view>
+    </view>
+
+    <!-- 滑动提示 -->
+    <view wx:if="{{displayCards.length > 1}}" class="swipe-hint">
+      <t-icon name="chevron-left" size="36rpx" color="#F82B8F" bindtap="goPrevCard" />
+      <text>左右滑动查看更多</text>
+      <t-icon name="chevron-right" size="36rpx" color="#F82B8F" bindtap="goNextCard" />
+    </view>
+  </view>
+</view>

@@ -4,7 +4,7 @@ Component({
     isRecording: false,
     tabMap: {
       home1: '/pages/home1/index',
-      cards: '/pages/cards/index',
+      diary: '/pages/diary/index',
       calendar: '/pages/calendar/index',
       my: '/pages/my/index',
     },
