@@ -6,7 +6,7 @@ const ANIMATION_LOCK_TIME = 430;
 const TYPE_META = {
   work: {
     label: '工作',
-    icon: 'briefcase',
+    icon: 'internet',
     color: '#F82B8F'
   },
   study: {
@@ -14,7 +14,7 @@ const TYPE_META = {
     icon: 'book-open',
     color: '#7C5CFF'
   },
-  meeting: {
+  meet: {
     label: '会面',
     icon: 'usergroup',
     color: '#FF8A00'
@@ -23,16 +23,6 @@ const TYPE_META = {
     label: '生活',
     icon: 'home',
     color: '#00A7A7'
-  },
-  team: {
-    label: '团队',
-    icon: 'usergroup',
-    color: '#2F80ED'
-  },
-  activity: {
-    label: '活动',
-    icon: 'calendar',
-    color: '#00A870'
   }
 };
 

@@ -109,8 +109,8 @@ onDayTap(e) {
       // 根据 taskType 映射颜色
       let type = 'cyan';
       if (s.taskType === 'work') type = 'orange';
-      else if (s.taskType === 'study') type = 'purple';
-      else if (s.taskType === 'meet') type = 'orange';
+      else if (s.taskType === 'study') type = 'green';
+      else if (s.taskType === 'meet') type = 'pink';
       else if (s.taskType === 'life') type = 'cyan';
       if (s.priority) type = 'black';
       return {
