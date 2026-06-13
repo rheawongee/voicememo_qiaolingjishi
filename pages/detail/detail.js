@@ -31,16 +31,30 @@ Page({
     checkedSteps: []  // 用于显示完成数量
   },
 
-  onLoad(options) {
-    const { id } = options;
-    if (id) {
-      this.setData({ scheduleId: id });
-      this.loadScheduleData(id);
-    } else {
-      // 新建日程（可预设默认值）
-      this.initNewSchedule();
+  // onLoad(options) {
+  //   const { id } = options;
+  //   if (id) {
+  //     this.setData({ scheduleId: id });
+  //     this.loadScheduleData(id);
+  //   } else {
+  //     // 新建日程（可预设默认值）
+  //     this.initNewSchedule();
+  //   }
+  //   this.updateCheckedCount();
+  // },
+
+  onLoad() {
+    this.generateCalendarData();
+    // 监听详情页返回事件
+    const eventChannel = this.getOpenerEventChannel?.();
+    if (eventChannel) {
+      eventChannel.on('scheduleUpdated', (data) => {
+        this.generateCalendarData(); // 刷新日历数据
+      });
+      eventChannel.on('scheduleDeleted', (data) => {
+        this.generateCalendarData();
+      });
     }
-    this.updateCheckedCount();
   },
 
   // 从全局存储加载日程数据

@@ -7,6 +7,16 @@ Page({
 
   onLoad() {
     this.generateCalendarData();
+    // 监听详情页返回事件
+    const eventChannel = this.getOpenerEventChannel?.();
+    if (eventChannel) {
+      eventChannel.on('scheduleUpdated', (data) => {
+        this.generateCalendarData(); // 刷新日历数据
+      });
+      eventChannel.on('scheduleDeleted', (data) => {
+        this.generateCalendarData();
+      });
+    }
   },
 
   // 生成当前月份的日历数据
@@ -145,7 +155,11 @@ Page({
     // 跳转到详情页，传递 tag 信息（如 detailId）
     if (tag && tag.detailId) {
       wx.navigateTo({
-        url: `/pages/detail/index?id=${tag.detailId}&text=${tag.text}`
+        url: `/pages/detail/detail?id=${tag.detailId}&text=${tag.text}`,
+        fail: (err) => {
+          console.error('跳转失败', err);
+          wx.showToast({ title: '页面不存在', icon: 'error' });
+        }
       });
     } else {
       wx.showModal({

@@ -18,7 +18,6 @@
         <t-icon name="more" size="48rpx" color="black" />
       </view>
     </view>
-    <view class="torn-paper"></view>
   </view>
 
   <!-- 主内容区域（滚动） -->
