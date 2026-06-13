@@ -1,5 +1,5 @@
 <!--components/status-tag/index.wxml-->
-<view class="status-tag tag-{{tag.type}}" bindtap="onTap">
+<view class="status-tag tag-{{tag.type}}" catchtap="onTap">
   <t-icon wx:if="{{tag.icon}}" name="{{tag.icon}}" size="28rpx" />
   <text>{{tag.text}}</text>
 </view>

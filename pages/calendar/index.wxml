@@ -53,20 +53,21 @@
     <!-- 日期网格 -->
     <view class="calendar-grid">
       <block wx:for="{{calendarDays}}" wx:key="index">
-        <view class="day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}}">
+        <view class="day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}}"
+              bindtap="onDayTap"
+              data-date="{{item.fullDate}}">
           <view class="day-number">{{item.day}}</view>
           <view class="tags-container">
-            <!-- 可复用的 status-tag 组件 -->
-            <block wx:for="{{item.tags}}" wx:key="id" wx:for-item="tag">
-              <status-tag 
-                tag="{{tag}}" 
-                bind:tagTap="onTagTap"
-              />
+            <block wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag">
+              <!-- status-tag 内部必须使用 catchtap 阻止冒泡 -->
+              <status-tag tag="{{tag}}" bind:tagTap="onTagTap" />
             </block>
           </view>
         </view>
       </block>
     </view>
+
+    
 
     <!-- 底部占位 -->
     <view class="bottom-placeholder"></view>

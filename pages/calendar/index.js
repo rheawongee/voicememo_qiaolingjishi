@@ -1,56 +1,149 @@
+//page/calendar/index.js
+const STORAGE_KEY = 'voiceMemo_schedules';
+
 Page({
   data: {
     currentYear: 2026,
-    currentMonth: 5,        // 5 月
-    calendarDays: []        // 存储日历网格数据，每个元素包含 day, isCurrentMonth, isToday, tags
+    currentMonth: 6,
+    calendarDays: []
   },
 
   onLoad() {
+    this.initMockDataIfNeeded(); // 首次加载时初始化 mock 数据
     this.generateCalendarData();
-    // 监听详情页返回事件
-    const eventChannel = this.getOpenerEventChannel?.();
-    if (eventChannel) {
-      eventChannel.on('scheduleUpdated', (data) => {
-        this.generateCalendarData(); // 刷新日历数据
-      });
-      eventChannel.on('scheduleDeleted', (data) => {
-        this.generateCalendarData();
-      });
+  },
+
+  onShow() {
+    // 每次页面显示时重新加载数据（保证从详情页返回后刷新）
+    this.generateCalendarData();
+  },
+
+  // 点击日期格子 -> 添加新日程
+onDayTap(e) {
+  const date = e.currentTarget.dataset.date; // 格式 2026-05-03
+  wx.navigateTo({
+    url: `/pages/detail/detail?date=${date}`
+  });
+},
+
+  // 初始化 mock 数据（仅当 storage 为空时）
+  initMockDataIfNeeded() {
+    const schedules = wx.getStorageSync(STORAGE_KEY);
+    if (!schedules || schedules.length === 0) {
+      const mockSchedules = this.generateMockSchedules();
+      wx.setStorageSync(STORAGE_KEY, mockSchedules);
     }
   },
 
-  // 生成当前月份的日历数据
-  generateCalendarData() {
+  // 生成 mock 日程数据（模拟 2026年5月的那些 tag）
+  generateMockSchedules() {
+    // 将原来硬编码的 tags 转换为日程对象列表
+    const mockData = [
+      { id: 'run_001', title: '跑步', startDate: '2026-05-01', taskType: 'life', priority: false, summary: '晨跑5公里', steps: [] },
+      { id: 'step_003', title: '6858步', startDate: '2026-05-03', taskType: 'life', priority: false, summary: '今日步数', steps: [] },
+      { id: 'workout_003', title: '背部训练', startDate: '2026-05-03', taskType: 'life', priority: false, summary: '健身房背部训练', steps: [] },
+      { id: 'core_003', title: '核心稳定', startDate: '2026-05-03', taskType: 'life', priority: true, summary: '核心强化', steps: [] },
+      { id: 'step_004', title: '2814步', startDate: '2026-05-04', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_004', title: '肩部训练', startDate: '2026-05-04', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'core_004', title: '核心稳定', startDate: '2026-05-04', taskType: 'life', priority: true, summary: '', steps: [] },
+      { id: 'core_008', title: '核心训练+', startDate: '2026-05-08', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_008', title: '背部训练', startDate: '2026-05-08', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'step_009', title: '5940步', startDate: '2026-05-09', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_009', title: '三头训练', startDate: '2026-05-09', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'core_009', title: '核心稳定', startDate: '2026-05-09', taskType: 'life', priority: true, summary: '', steps: [] },
+      { id: 'step_013', title: '7246.5步', startDate: '2026-05-13', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_013', title: '肩部训练', startDate: '2026-05-13', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'core_013', title: '核心稳定', startDate: '2026-05-13', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_015', title: '上臂, 腿部', startDate: '2026-05-15', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'step_016', title: '5848步', startDate: '2026-05-16', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_016', title: '背部训练', startDate: '2026-05-16', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'step_020', title: '2854步', startDate: '2026-05-20', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_020', title: '肩部训练', startDate: '2026-05-20', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'cardio_020', title: '有氧训练', startDate: '2026-05-20', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'step_023', title: '11467步', startDate: '2026-05-23', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_023', title: '背部训练', startDate: '2026-05-23', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'core_023', title: '核心稳定', startDate: '2026-05-23', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'step_024', title: '6693步', startDate: '2026-05-24', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'core_024', title: '核心稳定', startDate: '2026-05-24', taskType: 'life', priority: true, summary: '', steps: [] },
+      { id: 'step_027', title: '6820步', startDate: '2026-05-27', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'workout_027', title: '肩部训练', startDate: '2026-05-27', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'stretch_027', title: '拉伸放松', startDate: '2026-05-27', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'meeting_028', title: '团队会议', startDate: '2026-05-28', taskType: 'work', priority: false, summary: '', steps: [] },
+      { id: 'review_028', title: '项目复盘', startDate: '2026-05-28', taskType: 'work', priority: false, summary: '', steps: [] },
+      { id: 'interview_029', title: '访谈准备', startDate: '2026-05-29', taskType: 'work', priority: false, summary: '', steps: [] },
+      { id: 'docs_029', title: '资料整理', startDate: '2026-05-29', taskType: 'work', priority: false, summary: '', steps: [] },
+      { id: 'speech_030', title: '练习演讲', startDate: '2026-05-30', taskType: 'work', priority: false, summary: '', steps: [] },
+      { id: 'content_030', title: '内容创作', startDate: '2026-05-30', taskType: 'work', priority: false, summary: '', steps: [] },
+      { id: 'leisure_031', title: '自由活动', startDate: '2026-05-31', taskType: 'life', priority: false, summary: '', steps: [] },
+      { id: 'diary_031', title: '日记记录', startDate: '2026-05-31', taskType: 'life', priority: false, summary: '', steps: [] }
+    ];
+    // 为每个日程补充完整字段（与 detail 页面结构一致）
+    return mockData.map(s => ({
+      ...s,
+      summary: s.summary || '',
+      tags: [],
+      priority: s.priority || false,
+      startTime: '09:00',
+      endDate: s.startDate,
+      endTime: '10:00',
+      isAllDay: false,
+      steps: [],
+      characterImg: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDB-6mX5RGTAw6izHBbVhZ5lkKAZunUo2qxswa3GTymZPJ3iT2KCREFL_u2jM7iLRJTOxioF0WuFHdZN-AuMX7ki3w8R5wp0BOISyJNyrxB7IVFKyFm2qp5FpwqR1y6SKnlyfy0lIVwj7NxFl3lKEK1ujsWsX-uv4cnzJjd_b-STvqNhA_xOeAzOHNO2fHkusj5q401oBnQl9Btk0JD_Zu6ezZpXOCvX_RUJ7LPeBzfrKJ3SBBWDVC6SocgutrBYSLsN-d9msCA-pU',
+      taskType: s.taskType || 'life'
+    }));
+  },
+
+  // 获取所有日程
+  getAllSchedules() {
+    return wx.getStorageSync(STORAGE_KEY) || [];
+  },
+
+  // 根据日期获取 tags
+  getTagsForDate(year, month, day) {
+    const dateStr = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const schedules = this.getAllSchedules();
+    const daySchedules = schedules.filter(s => s.startDate === dateStr);
+    // 转换为 status-tag 需要的格式
+    return daySchedules.map(s => {
+      console.log('检测到数据：', s.id, s.title);
+      // 根据 taskType 映射颜色
+      let type = 'cyan';
+      if (s.taskType === 'work') type = 'orange';
+      else if (s.taskType === 'study') type = 'purple';
+      else if (s.taskType === 'meet') type = 'orange';
+      else if (s.taskType === 'life') type = 'cyan';
+      if (s.priority) type = 'black';
+      return {
+        text: s.title,
+        type: type,
+        icon: s.taskType === 'work' ? 'work' : (s.taskType === 'study' ? 'book' : 'mic'),
+        detailId: s.id
+      };
+    });
+  },
+
+  // 生成日历网格（异步获取 tags）
+  async generateCalendarData() {
     const { currentYear, currentMonth } = this.data;
-    // 获取当月第一天星期几（周一为 1，周日为 7）
     const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
-    let startWeekday = firstDayOfMonth.getDay(); // 0=周日
-    startWeekday = startWeekday === 0 ? 7 : startWeekday; // 转为周一~周日 1~7
-    // 偏移量：日历第一格需要显示上个月的日期数量
+    let startWeekday = firstDayOfMonth.getDay();
+    startWeekday = startWeekday === 0 ? 7 : startWeekday;
     const offset = startWeekday - 1;
-
-    // 获取当月总天数
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-    // 获取上月总天数（用于填充前部空白）
     const prevMonthDays = new Date(currentYear, currentMonth - 1, 0).getDate();
-
-    // 获取今天的日期（用于高亮）
     const today = new Date();
     const todayYear = today.getFullYear();
     const todayMonth = today.getMonth() + 1;
     const todayDate = today.getDate();
 
     const calendar = [];
-    // 生成 6 周 * 7 = 42 格
     for (let i = 0; i < 42; i++) {
       let dayNum, isCurrentMonth, isToday = false;
       let year = currentYear, month = currentMonth;
 
       if (i < offset) {
-        // 上个月
         dayNum = prevMonthDays - (offset - i) + 1;
         isCurrentMonth = false;
-        // 调整年份月份用于可能跨年的标签查询（此处简化，只标记是否当月）
         let prevMonthYear = currentYear;
         let prevMonthNum = currentMonth - 1;
         if (prevMonthNum < 1) {
@@ -60,7 +153,6 @@ Page({
         year = prevMonthYear;
         month = prevMonthNum;
       } else if (i >= offset + daysInMonth) {
-        // 下个月
         dayNum = i - (offset + daysInMonth) + 1;
         isCurrentMonth = false;
         let nextMonthYear = currentYear;
@@ -72,7 +164,6 @@ Page({
         year = nextMonthYear;
         month = nextMonthNum;
       } else {
-        // 当月
         dayNum = i - offset + 1;
         isCurrentMonth = true;
         if (year === todayYear && month === todayMonth && dayNum === todayDate) {
@@ -80,9 +171,7 @@ Page({
         }
       }
 
-      // 调用接口（或模拟）获取该日期的 tags
       const tags = this.getTagsForDate(year, month, dayNum);
-
       calendar.push({
         day: dayNum,
         isCurrentMonth,
@@ -91,86 +180,18 @@ Page({
         fullDate: `${year}-${month}-${dayNum}`
       });
     }
-
     this.setData({ calendarDays: calendar });
   },
 
-  /**
-   * 获取某一天的 tag 列表（模拟数据 + 预留后端接口）
-   * 实际使用时替换为 wx.request 调用服务端 API
-   */
-  getTagsForDate(year, month, day) {
-    // 模拟数据：仅生成 2026年5月 的部分训练记录，与 HTML 示例类似
-    // 真实场景应根据 year/month/day 请求后端，返回数组
-    if (year === 2026 && month === 5) {
-      const mockMap = {
-        1: [{ text: '跑步', type: 'orange', icon: 'directions_run', detailId: 'run_001' }],
-        3: [{ text: '6858步', type: 'cyan', icon: 'directions_walk', detailId: 'step_003' },
-            { text: '背部训练', type: 'cyan', icon: 'fitness_center', detailId: 'workout_003' },
-            { text: '核心稳定', type: 'black', icon: 'star', detailId: 'core_003' }],
-        4: [{ text: '2814步', type: 'cyan', icon: 'directions_walk', detailId: 'step_004' },
-            { text: '肩部训练', type: 'cyan', icon: 'fitness_center', detailId: 'workout_004' },
-            { text: '核心稳定', type: 'black', icon: 'star', detailId: 'core_004' }],
-        8: [{ text: '核心训练+', type: 'cyan', icon: 'mic', detailId: 'core_008' },
-            { text: '背部训练', type: 'cyan', icon: 'fitness_center', detailId: 'workout_008' }],
-        9: [{ text: '5940步', type: 'cyan', icon: 'directions_walk', detailId: 'step_009' },
-            { text: '三头训练', type: 'cyan', icon: 'fitness_center', detailId: 'workout_009' },
-            { text: '核心稳定', type: 'black', icon: 'star', detailId: 'core_009' }],
-        13: [{ text: '7246.5步', type: 'cyan', detailId: 'step_013' },
-             { text: '肩部训练', type: 'cyan', detailId: 'workout_013' },
-             { text: '核心稳定', type: 'cyan', detailId: 'core_013' }],
-        15: [{ text: '上臂, 腿部', type: 'cyan', icon: 'phone', detailId: 'workout_015' }],
-        16: [{ text: '5848步', type: 'cyan', detailId: 'step_016' },
-             { text: '背部训练', type: 'cyan', detailId: 'workout_016' }],
-        20: [{ text: '2854步', type: 'cyan', detailId: 'step_020' },
-             { text: '肩部训练', type: 'cyan', detailId: 'workout_020' },
-             { text: '有氧训练', type: 'cyan', icon: 'favorite', detailId: 'cardio_020' }],
-        23: [{ text: '11467步', type: 'orange', detailId: 'step_023' },
-             { text: '背部训练', type: 'orange', detailId: 'workout_023' },
-             { text: '核心稳定', type: 'orange', detailId: 'core_023' }],
-        24: [{ text: '6693步', type: 'orange', detailId: 'step_024' },
-             { text: '核心稳定', type: 'black', detailId: 'core_024' }],
-        27: [{ text: '6820步', type: 'orange', detailId: 'step_027' },
-             { text: '肩部训练', type: 'orange', detailId: 'workout_027' },
-             { text: '拉伸放松', type: 'orange', icon: 'face', detailId: 'stretch_027' }],
-        28: [{ text: '团队会议', type: 'orange', icon: 'mic', detailId: 'meeting_028' },
-             { text: '项目复盘', type: 'orange', icon: 'assignment', detailId: 'review_028' }],
-        29: [{ text: '访谈准备', type: 'orange', icon: 'mic', detailId: 'interview_029' },
-             { text: '资料整理', type: 'orange', icon: 'folder', detailId: 'docs_029' }],
-        30: [{ text: '练习演讲', type: 'orange', icon: 'mic', detailId: 'speech_030' },
-             { text: '内容创作', type: 'orange', detailId: 'content_030' }],
-        31: [{ text: '自由活动', type: 'orange', icon: 'sentiment_satisfied', detailId: 'leisure_031' },
-             { text: '日记记录', type: 'orange', detailId: 'diary_031' }]
-      };
-      return mockMap[day] || [];
-    }
-    // 其他月份返回空数组，但可扩展
-    return [];
-  },
-
-  // 点击 status-tag 触发（由组件或页面内事件冒泡）
   onTagTap(e) {
-    console.log('calendar 页面收到 tagTap 事件，参数：', e.detail);
     const { tag } = e.detail;
-    // 跳转到详情页，传递 tag 信息（如 detailId）
     if (tag && tag.detailId) {
       wx.navigateTo({
-        url: `/pages/detail/detail?id=${tag.detailId}&text=${tag.text}`,
-        fail: (err) => {
-          console.error('跳转失败', err);
-          wx.showToast({ title: '页面不存在', icon: 'error' });
-        }
-      });
-    } else {
-      wx.showModal({
-        title: tag.text,
-        content: '详情功能开发中',
-        showCancel: false
+        url: `/pages/detail/detail?id=${tag.detailId}`
       });
     }
   },
 
-  // 上个月
   prevMonth() {
     let { currentYear, currentMonth } = this.data;
     if (currentMonth === 1) {
@@ -184,7 +205,6 @@ Page({
     });
   },
 
-  // 下个月
   nextMonth() {
     let { currentYear, currentMonth } = this.data;
     if (currentMonth === 12) {
@@ -198,7 +218,6 @@ Page({
     });
   },
 
-  // 回到本月（2026年5月示例，也可动态获取实际当前月）
   backToToday() {
     const now = new Date();
     const year = now.getFullYear();
@@ -208,7 +227,6 @@ Page({
     });
   },
 
-  // 头像点击预留
   onAvatarTap() {
     wx.showToast({ title: '个人资料', icon: 'none' });
   }
