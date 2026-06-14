@@ -29,17 +29,23 @@ Component({
 
       recorderManager.onError((err) => {
         console.error('录音错误', err);
+        const wasRecording = this.data.isRecording;
         this.setData({ isRecording: false });
-        wx.showToast({ title: '录音失败', icon: 'error' });
+        // 没在录音的时候不弹出
+        if (!wasRecording) return;
+        wx.showToast({
+          title: '录音失败',
+          icon: 'error'
+        });
       });
     },
 
     detached() {
       // 组件销毁时停止录音并释放资源
-      if (this.recorderManager) {
+      if (this.recorderManager && this.data.isRecording) {
         this.recorderManager.stop();
       }
-    }
+    },
   },
 
   methods: {
@@ -146,5 +152,5 @@ Component({
         },
       });
     },
-  }
+  },
 });

@@ -1,15 +1,7 @@
 <!--page/detail/wxml-->
 <view class="app-container">
-  <!-- 头部：洋红背景 + 撕纸边 -->
+
   <view class="header-bg">
-    <view class="status-bar">
-      <text>9:41</text>
-      <view class="status-icons">
-        <t-icon name="signal" size="28rpx" color="white" />
-        <t-icon name="wifi" size="28rpx" color="white" />
-        <t-icon name="battery" size="28rpx" color="white" />
-      </view>
-    </view>
     <view class="nav-bar">
       <view class="nav-btn" bindtap="onBack">
         <t-icon name="chevron-left" size="48rpx" color="black" />

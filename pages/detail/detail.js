@@ -15,10 +15,11 @@ Page({
     endTime: '',
     isAllDay: false,
     steps: [],
-    characterImg: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDB-6mX5RGTAw6izHBbVhZ5lkKAZunUo2qxswa3GTymZPJ3iT2KCREFL_u2jM7iLRJTOxioF0WuFHdZN-AuMX7ki3w8R5wp0BOISyJNyrxB7IVFKyFm2qp5FpwqR1y6SKnlyfy0lIVwj7NxFl3lKEK1ujsWsX-uv4cnzJjd_b-STvqNhA_xOeAzOHNO2fHkusj5q401oBnQl9Btk0JD_Zu6ezZpXOCvX_RUJ7LPeBzfrKJ3SBBWDVC6SocgutrBYSLsN-d9msCA-pU',
+    characterImg: '/static/bennet.png',
     typeLabel: '工作',
     typeColor: '#3B82F6',
-    checkedSteps: []
+    checkedSteps: [],
+    completed: false
   },
 
   onLoad(options) {
@@ -56,7 +57,8 @@ Page({
         endTime: schedule.endTime || '10:00',
         isAllDay: schedule.isAllDay || false,
         steps: schedule.steps || [],
-        characterImg: schedule.characterImg || this.data.characterImg
+        characterImg: schedule.characterImg || this.data.characterImg,
+        completed:schedule.completed
       });
     } else {
       this.initNewSchedule();
@@ -79,7 +81,8 @@ Page({
       endTime: '10:00',
       isAllDay: false,
       steps: [],
-      characterImg: this.data.characterImg
+      characterImg: this.data.characterImg,
+      completed: false
     };
     this.setData({
       ...schedule,
