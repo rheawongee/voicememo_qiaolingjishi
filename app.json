@@ -2,9 +2,9 @@
   "pages": [
     "pages/home1/index",
     "pages/my/index",
-    "components/status-tag/index",
     "pages/calendar/index",
-    "pages/diary/index"
+    "pages/diary/index",
+    "components/status-tag/index"
   ],
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast",
