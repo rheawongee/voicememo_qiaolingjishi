@@ -1,3 +1,4 @@
+<!--page/detail/wxml-->
 <view class="app-container">
   <!-- 头部：洋红背景 + 撕纸边 -->
   <view class="header-bg">

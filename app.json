@@ -7,7 +7,8 @@
     "pages/diary/index"
   ],
   "usingComponents": {
-    "t-toast": "tdesign-miniprogram/toast/toast"
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "custom-nav-bar": "/components/custom-nav-bar/index"
   },
   "subpackages": [
     {

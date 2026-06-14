@@ -1,3 +1,4 @@
+/*page/calendar/index/*wxss*/
 page {
   background-color: #FF1493; /* 与 html body 背景一致 */
 }
@@ -121,18 +122,6 @@ page {
   }
 }
 
-/* 撕裂边缘 */
-.torn-edge {
-  width: 100%;
-  height: 30rpx;
-  background: white;
-  mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 L5 12 L10 18 L15 10 L20 15 L25 5 L30 15 L35 8 L40 16 L45 10 L50 18 L55 5 L60 15 L65 7 L70 16 L75 10 L80 18 L85 8 L90 15 L95 10 L100 20 Z" fill="black"/></svg>');
-  mask-size: 100% 30rpx;
-  mask-repeat: repeat-x;
-  margin-top: -8rpx;
-  position: relative;
-  z-index: 2;
-}
 
 /* 主内容区 */
 .main-content {
@@ -215,14 +204,15 @@ page {
   align-items: center;
   gap: 6rpx;
   font-size: 20rpx;
-  padding: 6rpx 12rpx;
+  padding: 6rpx 6rpx;
   border-radius: 12rpx;
   border-width: 2rpx;
   border-style: solid;
-  font-weight: 500;
+  font-weight: 300;
   width: fit-content;
   max-width: 100%;
   word-break: break-all;
+
   &.tag-cyan {
     background: #E8FBFF;
     color: #00838F;
@@ -238,8 +228,17 @@ page {
     color: white;
     border-color: #000;
   }
+  &.tag-pink {
+    background: #ffdffa;
+    color: #e6008e;
+    border-color: #ff4dca;
+  }
+  &.tag-green {
+    background: #caf8d9;
+    color: #607d5f;
+    border-color: #62da82;
+  }
 }
-
 .bottom-placeholder {
   height: 80rpx;
 }

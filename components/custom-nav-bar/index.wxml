@@ -1,0 +1,18 @@
+<!--components/custom-nav-bar/index.wxml-->
+<view class="nav-bar-container">
+  <!-- 背景层 -->
+  <view class="header-bg">
+    <view class="halftone-bg"></view>
+  </view>
+  
+  <!-- 内容层 -->
+  <view class="custom-header">
+    <view class="menu-btn" wx:if="{{showMenu}}" bindtap="onMenuTap">
+      <t-icon name="menu" size="40rpx" color="#1b1b1c" />
+    </view>
+    <view class="title">{{title}}</view>
+    <view class="avatar-btn" wx:if="{{showAvatar}}" bindtap="onAvatarTap">
+      <image class="avatar-img" mode="aspectFill" src="{{avatarSrc}}" />
+    </view>
+  </view>
+</view>

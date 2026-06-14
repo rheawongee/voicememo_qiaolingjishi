@@ -1,44 +1,42 @@
+<!--page/calendar/index/wxml-->
 <view class="app-container">
   <!-- 背景半色调 -->
   <view class="halftone-bg"></view>
+  <!--顶部栏-->
+  <custom-nav-bar 
+    title="VoiceMemo"
+    bind:menuTap="onMenuTap"
+    bind:avatarTap="onAvatarTap"
+  />
 
-  <!-- 头部：Logo + 头像 -->
-  <view class="header">
-    <view class="logo">
-      <text class="logo-cyan">Voice</text><text class="logo-orange">Memo</text>
-    </view>
-    <view class="avatar" bindtap="onAvatarTap">
-      <image class="avatar-img" mode="aspectFill" src="/images/default-avatar.png" />
-    </view>
-  </view>
-
-  <!-- 月份控制栏 -->
-  <view class="month-control">
-    <view class="date-picker-card">
-      <t-icon name="calendar" size="36rpx" color="#FF1493" />
-      <view class="date-text">
-        <text class="year">{{currentYear}}</text>
-        <text class="month">{{currentMonth}}月</text>
-      </view>
-      <view class="month-buttons">
-        <view class="nav-btn" bindtap="prevMonth">
-          <t-icon name="chevron-left" size="36rpx" />
-        </view>
-        <view class="nav-btn" bindtap="nextMonth">
-          <t-icon name="chevron-right" size="36rpx" />
-        </view>
-      </view>
-    </view>
-    <button class="back-today-btn" bindtap="backToToday">
-      <t-icon name="star" size="28rpx" color="#FFB800" />
-      <text>回到本月</text>
-      <t-icon name="star" size="28rpx" color="#FFB800" />
-    </button>
-  </view>
 
 
   <!-- 日历主体（滚动区域） -->
   <scroll-view class="main-content" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 月份控制栏 -->
+    <view class="month-control">
+      <view class="date-picker-card">
+        <t-icon name="calendar" size="36rpx" color="#FF1493" />
+        <view class="date-text">
+          <text class="year">{{currentYear}}</text>
+          <text class="month">{{currentMonth}}月</text>
+        </view>
+        <view class="month-buttons">
+          <view class="nav-btn" bindtap="prevMonth">
+            <t-icon name="chevron-left" size="36rpx" />
+          </view>
+          <view class="nav-btn" bindtap="nextMonth">
+            <t-icon name="chevron-right" size="36rpx" />
+          </view>
+        </view>
+      </view>
+      <button class="back-today-btn" bindtap="backToToday">
+        <t-icon name="star" size="28rpx" color="#FFB800" />
+        <text>回到本月</text>
+        <t-icon name="star" size="28rpx" color="#FFB800" />
+      </button>
+    </view>
+    
     <!-- 星期行 -->
     <view class="weekdays">
       <view class="weekday">一</view>

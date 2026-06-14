@@ -1,12 +1,8 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "t-navbar": "tdesign-miniprogram/navbar/navbar",
-    "t-input": "tdesign-miniprogram/input/input",
+    "custom-nav-bar": "/components/custom-nav-bar/index",
     "t-icon": "tdesign-miniprogram/icon/icon",
-    "t-link": "tdesign-miniprogram/link/link",
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
-    "t-radio": "tdesign-miniprogram/radio/radio"
+    "t-button": "tdesign-miniprogram/button/button"
   }
 }

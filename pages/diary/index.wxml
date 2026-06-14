@@ -1,26 +1,19 @@
 <!--pages/diary/index.wxml-->
 <view class="page-container">
-  <!-- 头部（洋红背景 + 撕纸边） -->
-  <view class="header">
-    <view class="header-bg"></view>
-    <view class="header-content">
-      <button class="menu-btn" bindtap="onMenu">
-        <t-icon name="menu" size="48rpx" color="black" />
-      </button>
-      <text class="logo">VoiceMemo</text>
-      <view class="avatar" bindtap="onAvatar">
-        <image class="avatar-img" mode="aspectFill" src="/images/default-avatar.png" />
-      </view>
-    </view>
-  </view>
+   <!--顶部栏-->
+   <custom-nav-bar 
+    title="VoiceMemo"
+    bind:menuTap="onMenuTap"
+    bind:avatarTap="onAvatarTap"
+  />
 
   <!-- 主内容区 -->
   <view class="main-content">
     <view class="title-section">
-      <text class="main-title">已完成日程卡片</text>
+      <text class="main-title">日程卡片</text>
       <t-icon name="favorite" size="40rpx" color="#F82B8F" />
     </view>
-    <text class="subtitle">Your task. Your voice. Your story.</text>
+    <text class="subtitle">Life is better focusing on Done than ToDo.</text>
 
     <!-- 卡片堆叠容器：只渲染当天日期的卡片 -->
     <view wx:if="{{displayCards.length > 0}}"

@@ -100,6 +100,12 @@ onDayTap(e) {
 
   // 根据日期获取 tags
   getTagsForDate(year, month, day) {
+    const iconMap = {
+      'work': 'work',
+      'study': 'book',
+      'meet': 'usergroup',
+      'life': 'heart'
+    };
     const dateStr = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
     const schedules = this.getAllSchedules();
     const daySchedules = schedules.filter(s => s.startDate === dateStr);
@@ -114,9 +120,9 @@ onDayTap(e) {
       else if (s.taskType === 'life') type = 'cyan';
       if (s.priority) type = 'black';
       return {
-        text: s.title,
+        text: s.title.length > 2 ? s.title.slice(0, 2) : s.title,
         type: type,
-        icon: s.taskType === 'work' ? 'work' : (s.taskType === 'study' ? 'book' : 'mic'),
+        icon: iconMap[s.taskType] || 'usergroup',
         detailId: s.id
       };
     });
